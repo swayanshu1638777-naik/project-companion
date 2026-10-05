@@ -10,6 +10,9 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default: "bg-primary text-primary-foreground shadow hover:bg-primary/90",
+        hero: "rounded-full border border-primary bg-primary text-primary-foreground hover:bg-ice",
+        ember: "rounded-full border border-ember bg-ember text-ember-foreground hover:bg-ember/90",
+        quiet: "rounded-full border border-foreground/50 bg-transparent text-foreground hover:bg-foreground/10",
         destructive: "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
         outline:
           "border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground",
