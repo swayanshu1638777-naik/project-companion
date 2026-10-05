@@ -15,11 +15,20 @@ const adminNav = [
   ["Reports", "/admin/reports", FileText],
 ] as const;
 
-export function PortalShell({ active, role = "ADMIN", user = "System Administrator", children, student = false }: { active: string; role?: string; user?: string; children: ReactNode; student?: boolean }) {
+const studentNav = [
+  ["Dashboard", "/student", BarChart3], ["My Attendance", "/student/attendance", CalendarCheck],
+  ["My Marks", "/student/marks", Award], ["Performance", "/student/performance", ChartNoAxesColumn],
+  ["Profile", "/student/profile", UserRound],
+] as const;
+const teacherNav = [
+  ["Dashboard", "/teacher", BarChart3], ["Attendance", "/teacher/attendance", CalendarCheck],
+  ["Enter Marks", "/teacher/marks", Award], ["My Students", "/teacher/students", Users],
+  ["Performance", "/teacher/performance", ChartNoAxesColumn],
+] as const;
+
+export function PortalShell({ active, role = "ADMIN", user = "System Administrator", children, student = false, teacher = false }: { active: string; role?: string; user?: string; children: ReactNode; student?: boolean; teacher?: boolean }) {
   const [open, setOpen] = useState(false);
-  const nav = student
-    ? [["My Attendance", "/student/attendance", CalendarCheck] as const]
-    : adminNav;
+  const nav = student ? studentNav : teacher ? teacherNav : adminNav;
   return <div className="min-h-screen bg-background text-foreground lg:grid lg:grid-cols-[270px_1fr]">
     <aside className={cn("fixed inset-y-0 left-0 z-40 flex w-[270px] flex-col border-r border-border bg-card transition-transform lg:sticky lg:top-0 lg:h-screen lg:translate-x-0", open ? "translate-x-0" : "-translate-x-full")}>
       <div className="flex h-24 items-center justify-between border-b border-border px-6">
@@ -44,15 +53,15 @@ export function PageHeading({ eyebrow, title, description }: { eyebrow: string; 
   return <div className="mb-8 border-b border-border pb-7"><p className="mb-2 text-xs font-bold uppercase text-ember">{eyebrow}</p><h1 className="font-display text-5xl font-bold uppercase leading-none text-ice sm:text-6xl">{title}</h1><p className="mt-3 max-w-2xl text-sm text-muted-foreground sm:text-base">{description}</p></div>;
 }
 
-const field = "h-11 w-full border border-input bg-background px-3 text-sm text-foreground outline-none placeholder:text-muted-foreground focus:border-ember";
+export const field = "h-11 w-full border border-input bg-background px-3 text-sm text-foreground outline-none placeholder:text-muted-foreground focus:border-ember";
 const label = "mb-2 block text-xs font-bold uppercase text-muted-foreground";
-const panel = "border border-border bg-card p-5 sm:p-7";
+export const panel = "border border-border bg-card p-5 sm:p-7";
 
 export function AuthPage({ register = false }: { register?: boolean }) {
   const navigate = useNavigate(); const [show, setShow] = useState(false); const [message, setMessage] = useState("");
   function submit(e: FormEvent<HTMLFormElement>) { e.preventDefault(); const data = new FormData(e.currentTarget);
-    if (register) { const email=String(data.get("email")); if (!email.endsWith("@ssipmt.com")) return setMessage("Use your SSIPMT email ending with @ssipmt.com."); if (data.get("password") !== data.get("confirm")) return setMessage("Passwords do not match."); return setMessage("Registration validated. The OTP page was not included in the supplied files."); }
-    const role=String(data.get("role")); if(role === "Admin") navigate({to:"/admin"}); else if(role === "Student") navigate({to:"/student/attendance"}); else setMessage("The teacher dashboard was not included in the supplied files.");
+    if (register) { const email=String(data.get("email")); if (!email.endsWith("@ssipmt.com")) return setMessage("Use your SSIPMT email ending with @ssipmt.com."); if (data.get("password") !== data.get("confirm")) return setMessage("Passwords do not match."); return navigate({to:"/verify-otp"}); }
+    const role=String(data.get("role")); if(role === "Admin") navigate({to:"/admin"}); else if(role === "Student") navigate({to:"/student"}); else navigate({to:"/teacher"});
   }
   return <main className="min-h-screen bg-background px-4 py-10"><div className={cn("mx-auto", register ? "max-w-3xl" : "max-w-md")}>
     <Link to="/" className="mb-8 flex items-center justify-center gap-3"><span className="flex size-12 items-center justify-center border-2 border-ember font-display text-3xl font-bold text-ember">S</span><span className="font-display text-3xl font-bold uppercase text-ice">Smart College</span></Link>
@@ -86,7 +95,7 @@ export function DataTable({heads, rows, onDelete}:{heads:string[];rows:(string|R
 
 export function DashboardPage() { const dept=[85,79,81,84], branch=[85,83,82,79,81,84]; return <PortalShell active="Dashboard"><PageHeading eyebrow="Administration" title="College dashboard" description="Centralized oversight of departments, branches, attendance, and academic performance."/><div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-6">{[["Total Students","2,500"],["Total Teachers","150"],["Departments","8"],["Branches","15"],["Attendance","82%"],["Students < 75%","240"]].map(([k,v],i)=><div key={k} className={cn(panel,i===5&&"border-ember")}><p className="text-xs font-bold uppercase text-muted-foreground">{k}</p><p className="mt-4 font-display text-5xl font-bold text-ice">{v}</p></div>)}</div><div className="mt-5 grid gap-5 xl:grid-cols-2"><BarPanel title="Department-wise attendance" labels={["CSE","ECE","ME","CE"]} values={dept}/><BarPanel title="Branch-wise attendance" labels={["CSE","CSE-AI","AIML","ECE","ME","CE"]} values={branch}/></div><section className={cn(panel,"mt-5")}><h2 className="mb-5 font-display text-3xl font-bold uppercase text-ice">At-risk students</h2><DataTable heads={["Roll No","Student","Branch","Semester","Attendance","Avg Marks","Risk"]} rows={[["102","Aman Singh","AIML","Sem 3","60%","46.7%",<Risk/>],["103","Ravi Gupta","AIML","Sem 3","70%","67.5%",<Risk/>]]}/></section></PortalShell>; }
 function Risk(){return <span className="border border-ember px-2 py-1 text-[10px] font-bold text-ember">AT RISK</span>}
-function BarPanel({title,labels,values}:{title:string;labels:string[];values:number[]}) { return <section className={panel}><h2 className="font-display text-3xl font-bold uppercase text-ice">{title}</h2><div className="mt-6 flex h-56 items-end gap-3 border-b border-l border-border px-3 pt-4">{values.map((v,i)=><div key={labels[i]} className="flex h-full flex-1 flex-col justify-end gap-2 text-center"><span className="text-xs font-bold text-ice">{v}%</span><div className="w-full bg-ember" style={{height:`${v}%`}}/><span className="pb-2 text-[10px] text-muted-foreground">{labels[i]}</span></div>)}</div></section>; }
+export function BarPanel({title,labels,values}:{title:string;labels:string[];values:number[]}) { return <section className={panel}><h2 className="font-display text-3xl font-bold uppercase text-ice">{title}</h2><div className="mt-6 flex h-56 items-end gap-3 border-b border-l border-border px-3 pt-4">{values.map((v,i)=><div key={labels[i]} className="flex h-full flex-1 flex-col justify-end gap-2 text-center"><span className="text-xs font-bold text-ice">{v}%</span><div className="w-full bg-ember" style={{height:`${v}%`}}/><span className="pb-2 text-[10px] text-muted-foreground">{labels[i]}</span></div>)}</div></section>; }
 
 type DirectoryKind = "departments" | "branches" | "teachers" | "subjects";
 type DirectoryConfig = {
