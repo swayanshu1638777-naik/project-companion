@@ -10,33 +10,180 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AetherfieldRouteImport } from './routes/aetherfield'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as RegisterRouteImport } from './routes/register'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as AdminBranchesRouteImport } from './routes/admin.branches'
+import { Route as AdminDepartmentsRouteImport } from './routes/admin.departments'
+import { Route as AdminReportsRouteImport } from './routes/admin.reports'
+import { Route as AdminStudentsRouteImport } from './routes/admin.students'
+import { Route as AdminSubjectsRouteImport } from './routes/admin.subjects'
+import { Route as AdminTeachersRouteImport } from './routes/admin.teachers'
+import { Route as StudentAttendanceRouteImport } from './routes/student.attendance'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AetherfieldRoute = AetherfieldRouteImport.update({
+  id: '/aetherfield',
+  path: '/aetherfield',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RegisterRoute = RegisterRouteImport.update({
+  id: '/register',
+  path: '/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/admin/',
+  path: '/admin/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminBranchesRoute = AdminBranchesRouteImport.update({
+  id: '/admin/branches',
+  path: '/admin/branches',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminDepartmentsRoute = AdminDepartmentsRouteImport.update({
+  id: '/admin/departments',
+  path: '/admin/departments',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminReportsRoute = AdminReportsRouteImport.update({
+  id: '/admin/reports',
+  path: '/admin/reports',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminStudentsRoute = AdminStudentsRouteImport.update({
+  id: '/admin/students',
+  path: '/admin/students',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminSubjectsRoute = AdminSubjectsRouteImport.update({
+  id: '/admin/subjects',
+  path: '/admin/subjects',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminTeachersRoute = AdminTeachersRouteImport.update({
+  id: '/admin/teachers',
+  path: '/admin/teachers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudentAttendanceRoute = StudentAttendanceRouteImport.update({
+  id: '/student/attendance',
+  path: '/student/attendance',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/aetherfield': typeof AetherfieldRoute
+  '/login': typeof LoginRoute
+  '/register': typeof RegisterRoute
+  '/admin/branches': typeof AdminBranchesRoute
+  '/admin/departments': typeof AdminDepartmentsRoute
+  '/admin/reports': typeof AdminReportsRoute
+  '/admin/students': typeof AdminStudentsRoute
+  '/admin/subjects': typeof AdminSubjectsRoute
+  '/admin/teachers': typeof AdminTeachersRoute
+  '/student/attendance': typeof StudentAttendanceRoute
+  '/admin/': typeof AdminIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/aetherfield': typeof AetherfieldRoute
+  '/login': typeof LoginRoute
+  '/register': typeof RegisterRoute
+  '/admin/branches': typeof AdminBranchesRoute
+  '/admin/departments': typeof AdminDepartmentsRoute
+  '/admin/reports': typeof AdminReportsRoute
+  '/admin/students': typeof AdminStudentsRoute
+  '/admin/subjects': typeof AdminSubjectsRoute
+  '/admin/teachers': typeof AdminTeachersRoute
+  '/student/attendance': typeof StudentAttendanceRoute
+  '/admin': typeof AdminIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/aetherfield': typeof AetherfieldRoute
+  '/login': typeof LoginRoute
+  '/register': typeof RegisterRoute
+  '/admin/branches': typeof AdminBranchesRoute
+  '/admin/departments': typeof AdminDepartmentsRoute
+  '/admin/reports': typeof AdminReportsRoute
+  '/admin/students': typeof AdminStudentsRoute
+  '/admin/subjects': typeof AdminSubjectsRoute
+  '/admin/teachers': typeof AdminTeachersRoute
+  '/student/attendance': typeof StudentAttendanceRoute
+  '/admin/': typeof AdminIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/aetherfield'
+    | '/login'
+    | '/register'
+    | '/admin/branches'
+    | '/admin/departments'
+    | '/admin/reports'
+    | '/admin/students'
+    | '/admin/subjects'
+    | '/admin/teachers'
+    | '/student/attendance'
+    | '/admin/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/aetherfield'
+    | '/login'
+    | '/register'
+    | '/admin/branches'
+    | '/admin/departments'
+    | '/admin/reports'
+    | '/admin/students'
+    | '/admin/subjects'
+    | '/admin/teachers'
+    | '/student/attendance'
+    | '/admin'
+  id:
+    | '__root__'
+    | '/'
+    | '/aetherfield'
+    | '/login'
+    | '/register'
+    | '/admin/branches'
+    | '/admin/departments'
+    | '/admin/reports'
+    | '/admin/students'
+    | '/admin/subjects'
+    | '/admin/teachers'
+    | '/student/attendance'
+    | '/admin/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AetherfieldRoute: typeof AetherfieldRoute
+  LoginRoute: typeof LoginRoute
+  RegisterRoute: typeof RegisterRoute
+  AdminBranchesRoute: typeof AdminBranchesRoute
+  AdminDepartmentsRoute: typeof AdminDepartmentsRoute
+  AdminReportsRoute: typeof AdminReportsRoute
+  AdminStudentsRoute: typeof AdminStudentsRoute
+  AdminSubjectsRoute: typeof AdminSubjectsRoute
+  AdminTeachersRoute: typeof AdminTeachersRoute
+  StudentAttendanceRoute: typeof StudentAttendanceRoute
+  AdminIndexRoute: typeof AdminIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +195,99 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/aetherfield': {
+      id: '/aetherfield'
+      path: '/aetherfield'
+      fullPath: '/aetherfield'
+      preLoaderRoute: typeof AetherfieldRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/register': {
+      id: '/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof RegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/': {
+      id: '/admin/'
+      path: '/admin'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/branches': {
+      id: '/admin/branches'
+      path: '/admin/branches'
+      fullPath: '/admin/branches'
+      preLoaderRoute: typeof AdminBranchesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/departments': {
+      id: '/admin/departments'
+      path: '/admin/departments'
+      fullPath: '/admin/departments'
+      preLoaderRoute: typeof AdminDepartmentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/reports': {
+      id: '/admin/reports'
+      path: '/admin/reports'
+      fullPath: '/admin/reports'
+      preLoaderRoute: typeof AdminReportsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/students': {
+      id: '/admin/students'
+      path: '/admin/students'
+      fullPath: '/admin/students'
+      preLoaderRoute: typeof AdminStudentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/subjects': {
+      id: '/admin/subjects'
+      path: '/admin/subjects'
+      fullPath: '/admin/subjects'
+      preLoaderRoute: typeof AdminSubjectsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/teachers': {
+      id: '/admin/teachers'
+      path: '/admin/teachers'
+      fullPath: '/admin/teachers'
+      preLoaderRoute: typeof AdminTeachersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/student/attendance': {
+      id: '/student/attendance'
+      path: '/student/attendance'
+      fullPath: '/student/attendance'
+      preLoaderRoute: typeof StudentAttendanceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AetherfieldRoute: AetherfieldRoute,
+  LoginRoute: LoginRoute,
+  RegisterRoute: RegisterRoute,
+  AdminBranchesRoute: AdminBranchesRoute,
+  AdminDepartmentsRoute: AdminDepartmentsRoute,
+  AdminReportsRoute: AdminReportsRoute,
+  AdminStudentsRoute: AdminStudentsRoute,
+  AdminSubjectsRoute: AdminSubjectsRoute,
+  AdminTeachersRoute: AdminTeachersRoute,
+  StudentAttendanceRoute: StudentAttendanceRoute,
+  AdminIndexRoute: AdminIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
