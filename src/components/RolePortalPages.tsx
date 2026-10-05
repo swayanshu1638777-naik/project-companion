@@ -6,8 +6,8 @@ import { cn } from "@/lib/utils";
 import { BarPanel, DataTable, PageHeading, PortalShell, field, panel } from "@/components/SmartCollegePortal";
 
 const h2 = "font-display text-3xl font-bold uppercase text-ice";
-const roster = [["101", "Rahul Kumar", "rahul@ssipmt.com"], ["102", "Aman Singh", "aman@ssipmt.com"], ["103", "Ravi Gupta", "ravi@ssipmt.com"]];
-const subjects = ["Data Structures & Algorithms (CS301) - AIML Sem 3 Sec A", "Database Management System (CS302) - AIML Sem 3 Sec A"];
+const roster: [string, string, string][] = [["101", "Rahul Kumar", "rahul@ssipmt.com"], ["102", "Aman Singh", "aman@ssipmt.com"], ["103", "Ravi Gupta", "ravi@ssipmt.com"]];
+const subjects: string[] = ["Data Structures & Algorithms (CS301) - AIML Sem 3 Sec A", "Database Management System (CS302) - AIML Sem 3 Sec A"];
 const exams = ["CT-1", "CT-2", "Assignment", "Mid-Term", "End Semester (ESE)"];
 
 function Student({ active, children }: { active: string; children: ReactNode }) {
@@ -52,7 +52,7 @@ export function TeacherDashboardPage() {
     <section className={cn(panel, "mt-5")}><h2 className={h2}>Quick faculty actions</h2><div className="mt-5 flex flex-wrap gap-3"><Button asChild variant="ember"><Link to="/teacher/attendance"><CalendarCheck />Mark daily attendance</Link></Button><Button asChild variant="quiet"><Link to="/teacher/marks"><ClipboardList />Enter exam marks</Link></Button></div></section></Teacher>;
 }
 export function TeacherAttendancePage() {
-  const [subject, setSubject] = useState(subjects[0]); const [date, setDate] = useState("2026-08-10");
+  const [subject, setSubject] = useState<string>(subjects[0] ?? ""); const [date, setDate] = useState("2026-08-10");
   const [shown, setShown] = useState(true); const [status, setStatus] = useState<Record<string, boolean>>({ "101": true, "102": true, "103": true }); const [msg, setMsg] = useState("");
   const setAll = (v: boolean) => setStatus(Object.fromEntries(roster.map(([r]) => [r, v])));
   return <Teacher active="Attendance"><PageHeading eyebrow="Faculty portal" title="Class attendance" description="Mark or edit daily attendance for students in your assigned subjects." />
