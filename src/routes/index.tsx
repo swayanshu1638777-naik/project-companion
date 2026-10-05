@@ -36,7 +36,7 @@ const portals = [
   },
 ];
 
-const suppliedPages: Record<string, "/admin" | "/admin/departments" | "/admin/branches" | "/admin/students" | "/admin/teachers" | "/admin/subjects" | "/admin/reports" | "/student/attendance"> = {
+const suppliedPages: Record<string, "/admin" | "/admin/departments" | "/admin/branches" | "/admin/students" | "/admin/teachers" | "/admin/subjects" | "/admin/reports" | "/student" | "/student/attendance" | "/student/marks" | "/student/performance" | "/student/profile" | "/teacher" | "/teacher/attendance" | "/teacher/marks" | "/teacher/performance" | "/teacher/students"> = {
   "Admin Dashboard": "/admin",
   "Admin Departments": "/admin/departments",
   "Admin Branches": "/admin/branches",
@@ -44,7 +44,16 @@ const suppliedPages: Record<string, "/admin" | "/admin/departments" | "/admin/br
   "Admin Teachers": "/admin/teachers",
   "Admin Subjects": "/admin/subjects",
   "Admin Reports": "/admin/reports",
+  "Student Dashboard": "/student",
   "Student Attendance": "/student/attendance",
+  "Student Marks": "/student/marks",
+  "Student Performance": "/student/performance",
+  "Student Profile": "/student/profile",
+  "Teacher Dashboard": "/teacher",
+  "Teacher Attendance": "/teacher/attendance",
+  "Teacher Marks": "/teacher/marks",
+  "Teacher Performance": "/teacher/performance",
+  "Teacher Students": "/teacher/students",
 };
 
 function Index() {
