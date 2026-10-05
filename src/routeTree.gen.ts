@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AetherfieldRouteImport } from './routes/aetherfield'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as RegisterRouteImport } from './routes/register'
+import { Route as VerifyOtpRouteImport } from './routes/verify-otp'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as AdminBranchesRouteImport } from './routes/admin.branches'
 import { Route as AdminDepartmentsRouteImport } from './routes/admin.departments'
@@ -20,7 +21,16 @@ import { Route as AdminReportsRouteImport } from './routes/admin.reports'
 import { Route as AdminStudentsRouteImport } from './routes/admin.students'
 import { Route as AdminSubjectsRouteImport } from './routes/admin.subjects'
 import { Route as AdminTeachersRouteImport } from './routes/admin.teachers'
+import { Route as StudentIndexRouteImport } from './routes/student.index'
 import { Route as StudentAttendanceRouteImport } from './routes/student.attendance'
+import { Route as StudentMarksRouteImport } from './routes/student.marks'
+import { Route as StudentPerformanceRouteImport } from './routes/student.performance'
+import { Route as StudentProfileRouteImport } from './routes/student.profile'
+import { Route as TeacherIndexRouteImport } from './routes/teacher.index'
+import { Route as TeacherAttendanceRouteImport } from './routes/teacher.attendance'
+import { Route as TeacherMarksRouteImport } from './routes/teacher.marks'
+import { Route as TeacherPerformanceRouteImport } from './routes/teacher.performance'
+import { Route as TeacherStudentsRouteImport } from './routes/teacher.students'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -40,6 +50,11 @@ const LoginRoute = LoginRouteImport.update({
 const RegisterRoute = RegisterRouteImport.update({
   id: '/register',
   path: '/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VerifyOtpRoute = VerifyOtpRouteImport.update({
+  id: '/verify-otp',
+  path: '/verify-otp',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminIndexRoute = AdminIndexRouteImport.update({
@@ -77,9 +92,54 @@ const AdminTeachersRoute = AdminTeachersRouteImport.update({
   path: '/admin/teachers',
   getParentRoute: () => rootRouteImport,
 } as any)
+const StudentIndexRoute = StudentIndexRouteImport.update({
+  id: '/student/',
+  path: '/student/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const StudentAttendanceRoute = StudentAttendanceRouteImport.update({
   id: '/student/attendance',
   path: '/student/attendance',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudentMarksRoute = StudentMarksRouteImport.update({
+  id: '/student/marks',
+  path: '/student/marks',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudentPerformanceRoute = StudentPerformanceRouteImport.update({
+  id: '/student/performance',
+  path: '/student/performance',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudentProfileRoute = StudentProfileRouteImport.update({
+  id: '/student/profile',
+  path: '/student/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TeacherIndexRoute = TeacherIndexRouteImport.update({
+  id: '/teacher/',
+  path: '/teacher/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TeacherAttendanceRoute = TeacherAttendanceRouteImport.update({
+  id: '/teacher/attendance',
+  path: '/teacher/attendance',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TeacherMarksRoute = TeacherMarksRouteImport.update({
+  id: '/teacher/marks',
+  path: '/teacher/marks',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TeacherPerformanceRoute = TeacherPerformanceRouteImport.update({
+  id: '/teacher/performance',
+  path: '/teacher/performance',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TeacherStudentsRoute = TeacherStudentsRouteImport.update({
+  id: '/teacher/students',
+  path: '/teacher/students',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -88,6 +148,7 @@ export interface FileRoutesByFullPath {
   '/aetherfield': typeof AetherfieldRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
+  '/verify-otp': typeof VerifyOtpRoute
   '/admin/branches': typeof AdminBranchesRoute
   '/admin/departments': typeof AdminDepartmentsRoute
   '/admin/reports': typeof AdminReportsRoute
@@ -95,13 +156,23 @@ export interface FileRoutesByFullPath {
   '/admin/subjects': typeof AdminSubjectsRoute
   '/admin/teachers': typeof AdminTeachersRoute
   '/student/attendance': typeof StudentAttendanceRoute
+  '/student/marks': typeof StudentMarksRoute
+  '/student/performance': typeof StudentPerformanceRoute
+  '/student/profile': typeof StudentProfileRoute
+  '/teacher/attendance': typeof TeacherAttendanceRoute
+  '/teacher/marks': typeof TeacherMarksRoute
+  '/teacher/performance': typeof TeacherPerformanceRoute
+  '/teacher/students': typeof TeacherStudentsRoute
   '/admin/': typeof AdminIndexRoute
+  '/student/': typeof StudentIndexRoute
+  '/teacher/': typeof TeacherIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/aetherfield': typeof AetherfieldRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
+  '/verify-otp': typeof VerifyOtpRoute
   '/admin/branches': typeof AdminBranchesRoute
   '/admin/departments': typeof AdminDepartmentsRoute
   '/admin/reports': typeof AdminReportsRoute
@@ -109,7 +180,16 @@ export interface FileRoutesByTo {
   '/admin/subjects': typeof AdminSubjectsRoute
   '/admin/teachers': typeof AdminTeachersRoute
   '/student/attendance': typeof StudentAttendanceRoute
+  '/student/marks': typeof StudentMarksRoute
+  '/student/performance': typeof StudentPerformanceRoute
+  '/student/profile': typeof StudentProfileRoute
+  '/teacher/attendance': typeof TeacherAttendanceRoute
+  '/teacher/marks': typeof TeacherMarksRoute
+  '/teacher/performance': typeof TeacherPerformanceRoute
+  '/teacher/students': typeof TeacherStudentsRoute
   '/admin': typeof AdminIndexRoute
+  '/student': typeof StudentIndexRoute
+  '/teacher': typeof TeacherIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -117,6 +197,7 @@ export interface FileRoutesById {
   '/aetherfield': typeof AetherfieldRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
+  '/verify-otp': typeof VerifyOtpRoute
   '/admin/branches': typeof AdminBranchesRoute
   '/admin/departments': typeof AdminDepartmentsRoute
   '/admin/reports': typeof AdminReportsRoute
@@ -124,7 +205,16 @@ export interface FileRoutesById {
   '/admin/subjects': typeof AdminSubjectsRoute
   '/admin/teachers': typeof AdminTeachersRoute
   '/student/attendance': typeof StudentAttendanceRoute
+  '/student/marks': typeof StudentMarksRoute
+  '/student/performance': typeof StudentPerformanceRoute
+  '/student/profile': typeof StudentProfileRoute
+  '/teacher/attendance': typeof TeacherAttendanceRoute
+  '/teacher/marks': typeof TeacherMarksRoute
+  '/teacher/performance': typeof TeacherPerformanceRoute
+  '/teacher/students': typeof TeacherStudentsRoute
   '/admin/': typeof AdminIndexRoute
+  '/student/': typeof StudentIndexRoute
+  '/teacher/': typeof TeacherIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -133,6 +223,7 @@ export interface FileRouteTypes {
     | '/aetherfield'
     | '/login'
     | '/register'
+    | '/verify-otp'
     | '/admin/branches'
     | '/admin/departments'
     | '/admin/reports'
@@ -140,13 +231,23 @@ export interface FileRouteTypes {
     | '/admin/subjects'
     | '/admin/teachers'
     | '/student/attendance'
+    | '/student/marks'
+    | '/student/performance'
+    | '/student/profile'
+    | '/teacher/attendance'
+    | '/teacher/marks'
+    | '/teacher/performance'
+    | '/teacher/students'
     | '/admin/'
+    | '/student/'
+    | '/teacher/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/aetherfield'
     | '/login'
     | '/register'
+    | '/verify-otp'
     | '/admin/branches'
     | '/admin/departments'
     | '/admin/reports'
@@ -154,13 +255,23 @@ export interface FileRouteTypes {
     | '/admin/subjects'
     | '/admin/teachers'
     | '/student/attendance'
+    | '/student/marks'
+    | '/student/performance'
+    | '/student/profile'
+    | '/teacher/attendance'
+    | '/teacher/marks'
+    | '/teacher/performance'
+    | '/teacher/students'
     | '/admin'
+    | '/student'
+    | '/teacher'
   id:
     | '__root__'
     | '/'
     | '/aetherfield'
     | '/login'
     | '/register'
+    | '/verify-otp'
     | '/admin/branches'
     | '/admin/departments'
     | '/admin/reports'
@@ -168,7 +279,16 @@ export interface FileRouteTypes {
     | '/admin/subjects'
     | '/admin/teachers'
     | '/student/attendance'
+    | '/student/marks'
+    | '/student/performance'
+    | '/student/profile'
+    | '/teacher/attendance'
+    | '/teacher/marks'
+    | '/teacher/performance'
+    | '/teacher/students'
     | '/admin/'
+    | '/student/'
+    | '/teacher/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -176,6 +296,7 @@ export interface RootRouteChildren {
   AetherfieldRoute: typeof AetherfieldRoute
   LoginRoute: typeof LoginRoute
   RegisterRoute: typeof RegisterRoute
+  VerifyOtpRoute: typeof VerifyOtpRoute
   AdminBranchesRoute: typeof AdminBranchesRoute
   AdminDepartmentsRoute: typeof AdminDepartmentsRoute
   AdminReportsRoute: typeof AdminReportsRoute
@@ -183,7 +304,16 @@ export interface RootRouteChildren {
   AdminSubjectsRoute: typeof AdminSubjectsRoute
   AdminTeachersRoute: typeof AdminTeachersRoute
   StudentAttendanceRoute: typeof StudentAttendanceRoute
+  StudentMarksRoute: typeof StudentMarksRoute
+  StudentPerformanceRoute: typeof StudentPerformanceRoute
+  StudentProfileRoute: typeof StudentProfileRoute
+  TeacherAttendanceRoute: typeof TeacherAttendanceRoute
+  TeacherMarksRoute: typeof TeacherMarksRoute
+  TeacherPerformanceRoute: typeof TeacherPerformanceRoute
+  TeacherStudentsRoute: typeof TeacherStudentsRoute
   AdminIndexRoute: typeof AdminIndexRoute
+  StudentIndexRoute: typeof StudentIndexRoute
+  TeacherIndexRoute: typeof TeacherIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -214,6 +344,13 @@ declare module '@tanstack/react-router' {
       path: '/register'
       fullPath: '/register'
       preLoaderRoute: typeof RegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/verify-otp': {
+      id: '/verify-otp'
+      path: '/verify-otp'
+      fullPath: '/verify-otp'
+      preLoaderRoute: typeof VerifyOtpRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/': {
@@ -265,11 +402,74 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminTeachersRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/student/': {
+      id: '/student/'
+      path: '/student'
+      fullPath: '/student/'
+      preLoaderRoute: typeof StudentIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/student/attendance': {
       id: '/student/attendance'
       path: '/student/attendance'
       fullPath: '/student/attendance'
       preLoaderRoute: typeof StudentAttendanceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/student/marks': {
+      id: '/student/marks'
+      path: '/student/marks'
+      fullPath: '/student/marks'
+      preLoaderRoute: typeof StudentMarksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/student/performance': {
+      id: '/student/performance'
+      path: '/student/performance'
+      fullPath: '/student/performance'
+      preLoaderRoute: typeof StudentPerformanceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/student/profile': {
+      id: '/student/profile'
+      path: '/student/profile'
+      fullPath: '/student/profile'
+      preLoaderRoute: typeof StudentProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/teacher/': {
+      id: '/teacher/'
+      path: '/teacher'
+      fullPath: '/teacher/'
+      preLoaderRoute: typeof TeacherIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/teacher/attendance': {
+      id: '/teacher/attendance'
+      path: '/teacher/attendance'
+      fullPath: '/teacher/attendance'
+      preLoaderRoute: typeof TeacherAttendanceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/teacher/marks': {
+      id: '/teacher/marks'
+      path: '/teacher/marks'
+      fullPath: '/teacher/marks'
+      preLoaderRoute: typeof TeacherMarksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/teacher/performance': {
+      id: '/teacher/performance'
+      path: '/teacher/performance'
+      fullPath: '/teacher/performance'
+      preLoaderRoute: typeof TeacherPerformanceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/teacher/students': {
+      id: '/teacher/students'
+      path: '/teacher/students'
+      fullPath: '/teacher/students'
+      preLoaderRoute: typeof TeacherStudentsRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -280,6 +480,7 @@ const rootRouteChildren: RootRouteChildren = {
   AetherfieldRoute: AetherfieldRoute,
   LoginRoute: LoginRoute,
   RegisterRoute: RegisterRoute,
+  VerifyOtpRoute: VerifyOtpRoute,
   AdminBranchesRoute: AdminBranchesRoute,
   AdminDepartmentsRoute: AdminDepartmentsRoute,
   AdminReportsRoute: AdminReportsRoute,
@@ -287,7 +488,16 @@ const rootRouteChildren: RootRouteChildren = {
   AdminSubjectsRoute: AdminSubjectsRoute,
   AdminTeachersRoute: AdminTeachersRoute,
   StudentAttendanceRoute: StudentAttendanceRoute,
+  StudentMarksRoute: StudentMarksRoute,
+  StudentPerformanceRoute: StudentPerformanceRoute,
+  StudentProfileRoute: StudentProfileRoute,
+  TeacherAttendanceRoute: TeacherAttendanceRoute,
+  TeacherMarksRoute: TeacherMarksRoute,
+  TeacherPerformanceRoute: TeacherPerformanceRoute,
+  TeacherStudentsRoute: TeacherStudentsRoute,
   AdminIndexRoute: AdminIndexRoute,
+  StudentIndexRoute: StudentIndexRoute,
+  TeacherIndexRoute: TeacherIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
