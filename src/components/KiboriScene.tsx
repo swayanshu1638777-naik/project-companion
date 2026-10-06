@@ -1,15 +1,18 @@
 import { useEffect, useRef, useState } from "react";
 
-export function KiboriScene({ onReady }: { onReady: (ready: boolean) => void }) {
+export type SceneStatus = "off" | "loading" | "ready";
+
+export function KiboriScene({ onStatus }: { onStatus: (status: SceneStatus) => void }) {
   const frameRef = useRef<HTMLIFrameElement>(null);
   const [enabled, setEnabled] = useState(false);
   const [failed, setFailed] = useState(false);
+  const onReady = (ready: boolean) => onStatus(ready ? "ready" : "loading");
 
   useEffect(() => {
     const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
     const update = () => {
       setEnabled(!preference.matches);
-      onReady(false);
+      onStatus(preference.matches ? "off" : "loading");
     };
     update();
     preference.addEventListener("change", update);
