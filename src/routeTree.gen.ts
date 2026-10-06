@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AetherfieldRouteImport } from './routes/aetherfield'
+import { Route as KiboriRouteImport } from './routes/kibori'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as RegisterRouteImport } from './routes/register'
 import { Route as VerifyOtpRouteImport } from './routes/verify-otp'
@@ -40,6 +41,11 @@ const IndexRoute = IndexRouteImport.update({
 const AetherfieldRoute = AetherfieldRouteImport.update({
   id: '/aetherfield',
   path: '/aetherfield',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KiboriRoute = KiboriRouteImport.update({
+  id: '/kibori',
+  path: '/kibori',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -146,6 +152,7 @@ const TeacherStudentsRoute = TeacherStudentsRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/aetherfield': typeof AetherfieldRoute
+  '/kibori': typeof KiboriRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
   '/verify-otp': typeof VerifyOtpRoute
@@ -170,6 +177,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/aetherfield': typeof AetherfieldRoute
+  '/kibori': typeof KiboriRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
   '/verify-otp': typeof VerifyOtpRoute
@@ -195,6 +203,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/aetherfield': typeof AetherfieldRoute
+  '/kibori': typeof KiboriRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
   '/verify-otp': typeof VerifyOtpRoute
@@ -221,6 +230,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/aetherfield'
+    | '/kibori'
     | '/login'
     | '/register'
     | '/verify-otp'
@@ -245,6 +255,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/aetherfield'
+    | '/kibori'
     | '/login'
     | '/register'
     | '/verify-otp'
@@ -269,6 +280,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/aetherfield'
+    | '/kibori'
     | '/login'
     | '/register'
     | '/verify-otp'
@@ -294,6 +306,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AetherfieldRoute: typeof AetherfieldRoute
+  KiboriRoute: typeof KiboriRoute
   LoginRoute: typeof LoginRoute
   RegisterRoute: typeof RegisterRoute
   VerifyOtpRoute: typeof VerifyOtpRoute
@@ -330,6 +343,13 @@ declare module '@tanstack/react-router' {
       path: '/aetherfield'
       fullPath: '/aetherfield'
       preLoaderRoute: typeof AetherfieldRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/kibori': {
+      id: '/kibori'
+      path: '/kibori'
+      fullPath: '/kibori'
+      preLoaderRoute: typeof KiboriRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -478,6 +498,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AetherfieldRoute: AetherfieldRoute,
+  KiboriRoute: KiboriRoute,
   LoginRoute: LoginRoute,
   RegisterRoute: RegisterRoute,
   VerifyOtpRoute: VerifyOtpRoute,
