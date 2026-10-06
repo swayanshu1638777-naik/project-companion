@@ -118,7 +118,28 @@
 }
 
 .college-home { overflow: clip; background: var(--background); }
-.college-hero { position: relative; display: flex; flex-direction: column; min-height: 650px; height: 100svh; }
+.college-hero-track { height: 220svh; }
+.college-hero { position: sticky; top: 0; overflow: hidden; display: flex; flex-direction: column; min-height: 650px; height: 100svh; }
+.college-scene { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; pointer-events: none; }
+.college-hero-shade { pointer-events: none; }
+@keyframes college-arrive { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes college-scroll-cue { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
+.college-header { animation: college-arrive .9s both; }
+.college-hero-copy > * { animation: college-arrive 1.1s both; }
+.college-hero-copy > :nth-child(1) { animation-delay: .15s; }
+.college-hero-copy > :nth-child(2) { animation-delay: .3s; }
+.college-hero-copy > :nth-child(3) { animation-delay: .5s; }
+.college-hero-copy > :nth-child(4) { animation-delay: .65s; }
+.college-hero-copy > :nth-child(5) { animation-delay: .8s; }
+.college-scroll svg { animation: college-scroll-cue 2s ease-in-out infinite; }
+.college-portal-top svg, .college-text-link svg, .college-portal-card li svg { transition: transform .3s ease; }
+.college-portal-card:hover .college-portal-top svg, .college-portal-card li a:hover svg { transform: translate(3px, -3px); }
+.college-text-link:hover svg { transform: translateY(3px); }
+@media (prefers-reduced-motion: reduce) {
+  .college-hero-track { height: auto; }
+  .college-hero { position: relative; }
+  .college-hero-copy > *, .college-header, .college-scroll svg { animation: none; }
+}
 .college-hero-image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; }
 .college-hero-shade { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(10,8,6,.88), rgba(10,8,6,.48) 40%, rgba(10,8,6,.08) 75%), linear-gradient(0deg, #0a0806, transparent 25%, transparent 80%, rgba(10,8,6,.7)); }
 .college-header { position: relative; z-index: 1; display: flex; align-items: center; gap: 48px; min-height: 82px; padding: 18px 32px; }

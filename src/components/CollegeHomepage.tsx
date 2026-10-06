@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowDown, ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { KiboriScene } from "@/components/KiboriScene";
 
 const portals = [
   {
@@ -66,8 +67,10 @@ function CollegeHeader() {
 
 function CampusHero() {
   return (
-    <section className="college-hero" aria-labelledby="campus-title">
+    <section className="college-hero-track" aria-labelledby="campus-title">
+      <div className="college-hero">
       <img src="/images/college-workshop.png" alt="Warm sunlight through crafted wooden lattice screens in a quiet campus library" className="college-hero-image" width={1536} height={1024} fetchPriority="high" />
+      <KiboriScene />
       <div className="college-hero-shade" aria-hidden="true" />
       <CollegeHeader />
       <div className="college-hero-copy">
@@ -86,6 +89,7 @@ function CampusHero() {
         </nav>
         <span className="college-volume">SMART COLLEGE — VOL. 01</span>
         <a href="#portals" className="college-scroll">Scroll to discover <ArrowDown className="size-3" aria-hidden="true" /></a>
+      </div>
       </div>
     </section>
   );

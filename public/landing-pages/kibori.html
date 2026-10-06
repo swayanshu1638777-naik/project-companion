@@ -7,7 +7,25 @@
 <meta name="description" content="KIBORI 木彫 — eight Japanese woodcrafts, from kumiko lattice to the kanna plane, made to commission in Kyoto.">
 <meta name="theme-color" content="#0a0806">
 <meta name="color-scheme" content="dark">
-<style>html{background:#000}</style>
+  <style>html{background:#000}</style>
+  <script>
+    if (new URLSearchParams(location.search).get('scene') === 'college') {
+      document.documentElement.classList.add('college-scene-mode');
+      window.__collegeScene = { progress: 0, active: true, started: performance.now() };
+      addEventListener('message', event => {
+        if (event.source !== parent || event.origin !== location.origin || event.data?.type !== 'college-scene') return;
+        window.__collegeScene.progress = Math.min(1, Math.max(0, Number(event.data.progress) || 0));
+        window.__collegeScene.active = event.data.active === true;
+      });
+      addEventListener('error', () => parent.postMessage({ type: 'college-scene-error' }, location.origin));
+    }
+  </script>
+  <style>
+    html.college-scene-mode { scrollbar-width: none; }
+    html.college-scene-mode::-webkit-scrollbar { display: none; }
+    .college-scene-mode body > :not(#stage):not(#kindle):not(#track):not(script):not(style) { visibility: hidden !important; pointer-events: none !important; }
+    .college-scene-mode .kindle-label { display: none !important; }
+  </style>
 <script>
 /* The loader (#kindle) draws its fire in a worker. A worker can start, and
    make its WebGL context, only while this thread is free: it is now, while
@@ -25119,6 +25137,11 @@ function placeKey(tx){
 }
 
 function scrollProgress(){
+  if (window.__collegeScene) {
+    const elapsed = (performance.now() - window.__collegeScene.started)/1000;
+    const drift = 0.025*(1 - Math.cos(elapsed*0.12));
+    return Math.min(0.32, window.__collegeScene.progress*0.27 + drift);
+  }
   const max = document.documentElement.scrollHeight - window.innerHeight;
   return max > 0 ? Math.min(1, Math.max(0, window.scrollY/max)) : 0;
 }
@@ -25958,6 +25981,12 @@ const particleTail={progress:3,mode:0,seed:0,gain:1,active:false,stopTime:-10,ve
 function bandOnForStats(tv){return !S.reduced && tv.f>0.001 && tv.f<0.999;}
 function frame(now){
   requestAnimationFrame(frame);
+  if (window.__collegeScene && !window.__collegeScene.active) { last = now; return; }
+  if (window.__collegeScene && !window.__collegeScene.ready && S.i0 !== null) {
+    window.__collegeScene.ready = true;
+    document.documentElement.dataset.sceneReady = 'true';
+    parent.postMessage({ type: 'college-scene-ready' }, location.origin);
+  }
   /* under the loader, until it hands over: two frames warm the intro's
      passes, then the fire has the GPU to itself (drawn at once under an
      opaque loader, both ran at half rate through the run into the hand-off) */
