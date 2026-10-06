@@ -1,17 +1,20 @@
 import { useEffect, useRef, useState } from "react";
 
-export function KiboriScene() {
+export function KiboriScene({ onReady }: { onReady: (ready: boolean) => void }) {
   const frameRef = useRef<HTMLIFrameElement>(null);
   const [enabled, setEnabled] = useState(false);
   const [failed, setFailed] = useState(false);
 
   useEffect(() => {
     const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const update = () => setEnabled(!preference.matches);
+    const update = () => {
+      setEnabled(!preference.matches);
+      onReady(false);
+    };
     update();
     preference.addEventListener("change", update);
     return () => preference.removeEventListener("change", update);
-  }, []);
+  }, [onReady]);
 
   useEffect(() => {
     if (!enabled || failed) return;
@@ -34,8 +37,14 @@ export function KiboriScene() {
     };
     const receive = (event: MessageEvent) => {
       if (event.source !== frame.contentWindow || event.origin !== window.location.origin) return;
-      if (event.data?.type === "college-scene-error") setFailed(true);
-      if (event.data?.type === "college-scene-ready") sync();
+      if (event.data?.type === "college-scene-error") {
+        setFailed(true);
+        onReady(false);
+      }
+      if (event.data?.type === "college-scene-ready") {
+        onReady(true);
+        sync();
+      }
     };
     window.addEventListener("scroll", schedule, { passive: true });
     window.addEventListener("resize", schedule);
@@ -51,8 +60,8 @@ export function KiboriScene() {
       window.removeEventListener("message", receive);
       frame.removeEventListener("load", sync);
     };
-  }, [enabled, failed]);
+  }, [enabled, failed, onReady]);
 
   if (!enabled || failed) return null;
-  return <iframe ref={frameRef} src="/landing-pages/kibori.html?scene=college" title="Animated Kibori workshop atmosphere" className="college-scene" tabIndex={-1} aria-hidden="true" />;
+  return <iframe ref={frameRef} src="/landing-pages/kibori.html?scene=college" title="Smart College — animated Student, Teacher and Admin introduction" className="college-scene" tabIndex={-1} />;
 }

@@ -23,8 +23,23 @@
   <style>
     html.college-scene-mode { scrollbar-width: none; }
     html.college-scene-mode::-webkit-scrollbar { display: none; }
-    .college-scene-mode body > :not(#stage):not(#kindle):not(#track):not(script):not(style) { visibility: hidden !important; pointer-events: none !important; }
-    .college-scene-mode .kindle-label { display: none !important; }
+    .college-scene-mode body > :not(#stage):not(#kindle):not(#track):not(.chrome):not(script):not(style) { display: none !important; }
+    .college-scene-mode :is(.kindle-label, #bar, #foot, #index, #vol, #cue, #inspect, #ch3, #ch4, #ch5, #ch6, #ch7) { display: none !important; }
+    .college-scene-mode .lockup { left: 5.5vw; top: 48%; transform: translateY(-50%); align-items: flex-start; text-align: left; white-space: normal; }
+    .college-scene-mode .lk-mark { max-width: 62vw; }
+    .college-scene-mode .lk-word { font-size: clamp(62px, 11vw, 170px); line-height: .95; letter-spacing: -.03em; margin-right: 0; }
+    .college-scene-mode :is(.lk-v, .lk-seal) { display: none; }
+    .college-scene-mode .lk-line { max-width: 34em; }
+    .college-scene-mode .chapter .big { font-size: clamp(76px, 13vw, 190px); }
+    .college-scene-mode .chapter .lede { font-size: clamp(21px, 2vw, 30px); max-width: min(23em, 43vw); }
+    .college-scene-mode .chapter .meta { gap: 24px; font-size: 10px; }
+    .college-scene-mode .chapter .meta b { font-size: 13px; }
+    @media (max-width: 820px) {
+      .college-scene-mode .lk-mark { max-width: 88vw; }
+      .college-scene-mode .chapter { padding: 0 24px; }
+      .college-scene-mode .chapter .lede { max-width: 80vw; font-size: 22px; }
+      .college-scene-mode .chapter .meta { flex-wrap: wrap; gap: 18px; }
+    }
   </style>
 <script>
 /* The loader (#kindle) draws its fire in a worker. A worker can start, and
@@ -1929,6 +1944,29 @@ ${EDGE}
   <div class="cue" id="cue"><span>Scroll</span></div>
 </div>
 
+<script>
+if (window.__collegeScene) {
+  document.title = 'Smart College — Student, Teacher and Admin portals';
+  const roles = [
+    { name: 'Student', note: 'Your next chapter.', description: 'Track attendance, examination marks and academic progress. Your college journey, together in one place.', features: [['Attendance', 'Stay on track'], ['Marks', 'See your results'], ['Progress', 'Keep growing']] },
+    { name: 'Teacher', note: 'Room to inspire.', description: 'Take attendance, enter marks and follow every student’s progress. Less administration. More connection.', features: [['Classes', 'Take attendance'], ['Results', 'Enter marks'], ['Students', 'Guide their progress']] },
+    { name: 'Admin', note: 'Everything in balance.', description: 'Manage students, teachers, departments and subjects. Bring your whole campus into focus.', features: [['People', 'Students & teachers'], ['Campus', 'Departments & subjects'], ['Records', 'Reports & insights']] }
+  ];
+  document.querySelector('.lk-word').textContent = 'Smart College';
+  document.querySelector('.lk-v').textContent = 'SC';
+  document.querySelector('.lk-seal').textContent = 'SC';
+  document.querySelector('.lk-line').textContent = 'Your classes. Your progress. Your people.';
+  document.querySelectorAll('.chapter').forEach((chapter, index) => {
+    const role = roles[index % roles.length];
+    chapter.querySelector('.num').innerHTML = '<s></s>' + String(index + 1).padStart(2, '0') + ' — ' + role.name + ' portal';
+    const title = chapter.querySelector('.big');
+    title.className = 'big';
+    title.textContent = role.name;
+    chapter.querySelector('.lede').textContent = role.note + ' ' + role.description;
+    chapter.querySelector('.meta').innerHTML = role.features.map(([label, value]) => '<div>' + label + '<b>' + value + '</b></div>').join('');
+  });
+}
+</script>
 <script type="importmap">
 {"imports":{"three":"https://unpkg.com/three@0.169.0/build/three.module.min.js"}}
 </script>
@@ -18242,7 +18280,7 @@ st1.rotation.set(0, -0.150, 0);
   const W=4.55,H=3.05,fw=0.115,fd=0.115;
   kumikoLattice=buildKumiko(W-2*fw,H-2*fw,0.360,0.021,0.068,kumikoMat);
   st1.add(kumikoLattice);
-  document.querySelector('.chapter .meta').querySelectorAll('b')[1].textContent=kumikoLattice.count.toLocaleString();
+  if (!window.__collegeScene) document.querySelector('.chapter .meta').querySelectorAll('b')[1].textContent=kumikoLattice.count.toLocaleString();
 
   const railMat = woodMat({pale:0x8a5f38, dark:0x3d2412, rough:0.62, grain:1.5,
     axis:0, ringFreq:7.0, offAxis:2.6, bump:0.10});   /* grain along x */
@@ -25138,9 +25176,7 @@ function placeKey(tx){
 
 function scrollProgress(){
   if (window.__collegeScene) {
-    const elapsed = (performance.now() - window.__collegeScene.started)/1000;
-    const drift = 0.025*(1 - Math.cos(elapsed*0.12));
-    return Math.min(0.32, window.__collegeScene.progress*0.27 + drift);
+    return window.__collegeScene.progress * 0.312;
   }
   const max = document.documentElement.scrollHeight - window.innerHeight;
   return max > 0 ? Math.min(1, Math.max(0, window.scrollY/max)) : 0;

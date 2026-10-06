@@ -118,7 +118,17 @@
 }
 
 .college-home { overflow: clip; background: var(--background); }
-.college-hero-track { height: 220svh; }
+.college-hero-track { height: 440svh; }
+.college-hero-track[data-scene-ready="false"] { height: 100svh; }
+.college-hero-track[data-scene-ready="true"] .college-hero-copy { visibility: hidden; pointer-events: none; }
+.college-hero-track[data-scene-ready="true"] #campus-title { visibility: visible; position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.college-hero-track[data-scene-ready="true"] .college-hero-shade { display: none; }
+.college-section-heading, .college-portal-card { transition: opacity .7s ease, transform .8s cubic-bezier(.2,.75,.2,1); }
+.college-portals [data-revealed="false"] { opacity: 0; transform: translateY(70px) scale(.97); }
+.college-portals [data-revealed="true"] { opacity: 1; transform: translateY(0) scale(1); }
+.college-portal-card:nth-child(2) { transition-delay: .1s; }
+.college-portal-card:nth-child(3) { transition-delay: .2s; }
+.college-portals:focus-within [data-revealed="false"] { opacity: 1; transform: none; }
 .college-hero { position: sticky; top: 0; overflow: hidden; display: flex; flex-direction: column; min-height: 650px; height: 100svh; }
 .college-scene { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; pointer-events: none; }
 .college-hero-shade { pointer-events: none; }
@@ -136,7 +146,8 @@
 .college-portal-card:hover .college-portal-top svg, .college-portal-card li a:hover svg { transform: translate(3px, -3px); }
 .college-text-link:hover svg { transform: translateY(3px); }
 @media (prefers-reduced-motion: reduce) {
-  .college-hero-track { height: auto; }
+  .college-hero-track, .college-hero-track[data-scene-ready="false"] { height: auto; }
+  .college-portals [data-revealed] { opacity: 1; transform: none; transition: none; }
   .college-hero { position: relative; }
   .college-hero-copy > *, .college-header, .college-scroll svg { animation: none; }
 }

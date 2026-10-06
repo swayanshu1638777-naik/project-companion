@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowDown, ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -66,16 +67,17 @@ function CollegeHeader() {
 }
 
 function CampusHero() {
+  const [sceneReady, setSceneReady] = useState(false);
   return (
-    <section className="college-hero-track" aria-labelledby="campus-title">
+    <section className="college-hero-track" data-scene-ready={sceneReady} aria-labelledby="campus-title">
       <div className="college-hero">
       <img src="/images/college-workshop.png" alt="Warm sunlight through crafted wooden lattice screens in a quiet campus library" className="college-hero-image" width={1536} height={1024} fetchPriority="high" />
-      <KiboriScene />
+      <KiboriScene onReady={setSceneReady} />
       <div className="college-hero-shade" aria-hidden="true" />
       <CollegeHeader />
       <div className="college-hero-copy">
         <p className="college-kicker"><span>01 / A connected campus</span><span className="college-hairline" /></p>
-        <h1 id="campus-title">A place<br />to <em>grow.</em></h1>
+        <h1 id="campus-title">Smart<br /><em>College.</em></h1>
         <p className="college-hero-lede">Every journey begins with a connection.</p>
         <p className="college-hero-description">Your classes. Your progress. Your people.<br />College life, brought together in one place.</p>
         <div className="college-hero-actions">
@@ -96,8 +98,26 @@ function CampusHero() {
 }
 
 function CampusPortals() {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const observer = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        (entry.target as HTMLElement).dataset["revealed"] = String(entry.isIntersecting);
+      }
+    }, { threshold: 0.12 });
+    const targets = section.querySelectorAll<HTMLElement>(".college-section-heading, .college-portal-card");
+    targets.forEach((target) => {
+      target.dataset["revealed"] = "false";
+      observer.observe(target);
+    });
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section id="portals" className="college-portals" aria-labelledby="portals-title">
+    <section ref={sectionRef} id="portals" className="college-portals" aria-labelledby="portals-title">
       <div className="college-section-heading">
         <div><p className="college-kicker">Three roles. One community.</p><h2 id="portals-title">Find your <em>place.</em></h2></div>
         <p>A space for everyone who makes<br />a campus feel like a campus.</p>
