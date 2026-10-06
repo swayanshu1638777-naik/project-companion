@@ -85,7 +85,7 @@ function Index() {
           <div className="mt-7 flex flex-wrap justify-center gap-3 sm:mt-8">
             <Button asChild variant="hero" size="lg" className="h-12 px-7"><Link to="/login">Login <ArrowRight /></Link></Button>
             <Button asChild variant="quiet" size="lg" className="h-12 px-7"><Link to="/register">Create an account</Link></Button>
-            <Button variant="quiet" size="lg" className="h-12 px-7" onClick={() => openPage("Verify OTP")}>Verify OTP</Button>
+
           </div>
         </div>
         <a href="#portals" className="absolute bottom-5 left-1/2 z-10 flex -translate-x-1/2 items-center gap-2 text-xs font-bold uppercase text-ice transition-colors hover:text-ember"><ArrowDown className="size-4" /> Explore portals</a>
