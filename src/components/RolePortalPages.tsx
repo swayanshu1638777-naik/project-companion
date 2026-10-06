@@ -81,7 +81,7 @@ export function TeacherPerformancePage() {
 
 export function VerifyOtpPage() {
   const navigate = useNavigate(); const [msg, setMsg] = useState("");
-  return <main className="min-h-screen bg-background px-4 py-10"><div className="mx-auto max-w-md">
+  return <main className="college-auth min-h-screen bg-background px-4 py-10"><div className="mx-auto max-w-md">
     <Link to="/" className="mb-8 flex items-center justify-center gap-3"><span className="flex size-12 items-center justify-center border-2 border-ember font-display text-3xl font-bold text-ember">S</span><span className="font-display text-3xl font-bold uppercase text-ice">Smart College</span></Link>
     <section className={panel}><ShieldCheck className="size-8 text-ember" /><h1 className="mt-4 font-display text-5xl font-bold uppercase leading-none text-ice">Verify OTP</h1><p className="mt-3 text-sm text-muted-foreground">A 6-digit verification OTP was dispatched to your college email and mobile number.</p>
       <p className="mt-5 bg-secondary p-3 text-sm text-muted-foreground">Demo verification OTP: <b className="text-ice">849201</b></p>

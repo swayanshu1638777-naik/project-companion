@@ -29,10 +29,10 @@ const teacherNav = [
 export function PortalShell({ active, role = "ADMIN", user = "System Administrator", children, student = false, teacher = false }: { active: string; role?: string; user?: string; children: ReactNode; student?: boolean; teacher?: boolean }) {
   const [open, setOpen] = useState(false);
   const nav = student ? studentNav : teacher ? teacherNav : adminNav;
-  return <div className="min-h-screen bg-background text-foreground lg:grid lg:grid-cols-[270px_1fr]">
+  return <div className="portal-shell min-h-screen bg-background text-foreground lg:grid lg:grid-cols-[270px_1fr]">
     <aside className={cn("fixed inset-y-0 left-0 z-40 flex w-[270px] flex-col border-r border-border bg-card transition-transform lg:sticky lg:top-0 lg:h-screen lg:translate-x-0", open ? "translate-x-0" : "-translate-x-full")}>
       <div className="flex h-24 items-center justify-between border-b border-border px-6">
-        <Link to="/" className="flex items-center gap-3" onClick={() => setOpen(false)}><span className="flex size-10 items-center justify-center border-2 border-ember font-display text-2xl font-bold text-ember">S</span><span className="font-display text-2xl font-bold uppercase leading-[0.8]">College<br/>Portal</span></Link>
+        <Link to="/" className="flex flex-col gap-2" onClick={() => setOpen(false)}><span className="portal-brand">Smart College</span><span className="text-[9px] uppercase tracking-[0.24em] text-muted-foreground">{role.toLowerCase()} / portal</span></Link>
         <Button variant="ghost" size="icon" className="lg:hidden" onClick={() => setOpen(false)} aria-label="Close menu"><X /></Button>
       </div>
       <nav className="flex-1 space-y-1 p-4" aria-label="Portal navigation">{nav.map(([label, to, Icon]) => <Link key={label} to={to} onClick={() => setOpen(false)} className={cn("flex h-11 items-center gap-3 border-l-2 px-4 text-sm font-semibold transition-colors", active === label ? "border-ember bg-secondary text-ice" : "border-transparent text-muted-foreground hover:bg-secondary hover:text-ice")}><Icon className="size-4" />{label}<ChevronRight className="ml-auto size-4" /></Link>)}</nav>
@@ -41,7 +41,7 @@ export function PortalShell({ active, role = "ADMIN", user = "System Administrat
     {open && <button className="fixed inset-0 z-30 bg-background/80 lg:hidden" onClick={() => setOpen(false)} aria-label="Close menu" />}
     <div className="min-w-0">
       <header className="flex min-h-20 items-center justify-between gap-4 border-b border-border bg-background px-5 sm:px-8">
-        <div className="flex items-center gap-3"><Button variant="ghost" size="icon" className="lg:hidden" onClick={() => setOpen(true)} aria-label="Open menu"><Menu /></Button><span className="hidden font-display text-xl font-bold uppercase sm:block">College Management System</span></div>
+        <div className="flex items-center gap-3"><Button variant="ghost" size="icon" className="lg:hidden" onClick={() => setOpen(true)} aria-label="Open menu"><Menu /></Button><Link to="/" className="hidden text-[10px] uppercase tracking-[0.2em] text-muted-foreground sm:block">Smart College / Campus, connected.</Link></div>
         <div className="flex items-center gap-3"><span className="border border-ember px-2 py-1 text-[10px] font-bold text-ember">{role}</span><span className="hidden text-sm font-semibold sm:block">{user}</span></div>
       </header>
       <main className="mx-auto max-w-[1480px] p-5 sm:p-8 lg:p-10">{children}</main>
@@ -63,7 +63,7 @@ export function AuthPage({ register = false }: { register?: boolean }) {
     if (register) { const email=String(data.get("email")); if (!email.endsWith("@ssipmt.com")) return setMessage("Use your SSIPMT email ending with @ssipmt.com."); if (data.get("password") !== data.get("confirm")) return setMessage("Passwords do not match."); return navigate({to:"/verify-otp"}); }
     const role=String(data.get("role")); if(role === "Admin") navigate({to:"/admin"}); else if(role === "Student") navigate({to:"/student"}); else navigate({to:"/teacher"});
   }
-  return <main className="min-h-screen bg-background px-4 py-10"><div className={cn("mx-auto", register ? "max-w-3xl" : "max-w-md")}>
+  return <main className="college-auth min-h-screen bg-background px-4 py-10"><div className={cn("mx-auto", register ? "max-w-3xl" : "max-w-md")}>
     <Link to="/" className="mb-8 flex items-center justify-center gap-3"><span className="flex size-12 items-center justify-center border-2 border-ember font-display text-3xl font-bold text-ember">S</span><span className="font-display text-3xl font-bold uppercase text-ice">Smart College</span></Link>
     <section className={panel}><p className="text-xs font-bold uppercase text-ember">{register ? "Student access" : "Portal access"}</p><h1 className="mt-2 font-display text-5xl font-bold uppercase leading-none text-ice">{register ? "Create your account" : "Welcome back"}</h1><p className="mt-3 text-sm text-muted-foreground">{register ? "Register your SSIPMT college account with email and phone verification." : "Sign in to access your college dashboard."}</p>
     <form onSubmit={submit} className="mt-7 space-y-5">{register ? <>
